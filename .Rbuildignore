@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^testing\.R$
+^codecov\.yml$
+^\.github$
+^README\.Rmd$

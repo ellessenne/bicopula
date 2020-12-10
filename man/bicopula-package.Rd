@@ -4,7 +4,7 @@
 \name{bicopula-package}
 \alias{bicopula}
 \alias{bicopula-package}
-\title{bicopula: What the Package Does (One Line, Title Case)}
+\title{bicopula: Bivariate Copula Regression Models}
 \description{
 What the package does (one paragraph).
 }

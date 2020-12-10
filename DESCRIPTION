@@ -1,5 +1,5 @@
 Package: bicopula
-Title: What the Package Does (One Line, Title Case)
+Title: Bivariate Copula Regression Models
 Version: 0.0.0.9000
 Authors@R:
   person(given = "Alessandro",
@@ -19,3 +19,5 @@ Imports:
   TMB (>= 1.7.18)
 LinkingTo:
   TMB
+Suggests: 
+  covr
