@@ -2,13 +2,13 @@
 
 #define TMB_LIB_INIT R_init_bicopula_TMBExports
 #include <TMB.hpp>
-#include "bi_survreg_exp_exp.hpp"
+#include "bisurvreg.hpp"
 
 template<class Type>
 Type objective_function<Type>::operator() () {
   DATA_STRING(model);
-  if(model == "bi_survreg_exp_exp") {
-    return bi_survreg_exp_exp(this);
+  if(model == "bisurvreg") {
+    return bisurvreg(this);
   } else {
     error("Unknown model.");
   }
