@@ -4,7 +4,7 @@ devtools::load_all()
 
 set.seed(1)
 
-N <- 1000
+N <- 10000
 df <- data.frame(
   age = runif(N, 20, 40),
   female = rbinom(N, size = 1, prob = 0.5),
@@ -13,14 +13,14 @@ df <- data.frame(
 
 survdf <- simulate_bisurv(
   dist1 = Exponential$new(lambda = 0.1),
-  dist2 = Gompertz$new(lambda = 0.5, gamma = 1.5),
+  dist2 = Exponential$new(lambda = 0.5),
   formula1 = ~ age + female,
   formula2 = ~ age + biomarker,
   data = df,
   beta1 = c(age = 0.01, female = 0.5),
   beta2 = c(age = 0.01, biomarker = 0.005),
-  maxt1 = 2,
-  maxt2 = 4,
+  maxt1 = 5,
+  maxt2 = 5,
   copula = copula::frankCopula(param = 3)
 )
 
@@ -30,11 +30,14 @@ true_beta1 <- c(Y1.ln_lambda = log(0.1), Y1.age = 0.01, Y1.female = 0.5)
 true_beta2 <- c(Y2.ln_lambda = log(0.5), Y2.age = 0.01, Y2.biomarker = 0.005)
 true_ancillary <- c(theta = 3, Y2.ln_gamma = log(1.5))
 
-# bisurv(
-#   formula1 = Surv(eventtime1, status1) ~ age + female,
-#   formula2 = Surv(eventtime2, status2) ~ age + female + biomarker,
-#   data = testdf
-# )
+fff <- bisurvreg(
+  formula1 = Surv(eventtime1, status1) ~ age + factor(female),
+  distribution1 = "weibull",
+  formula2 = Surv(eventtime2, status2) ~ age + factor(female) + biomarker,
+  distribution2 = "weibull",
+  data = testdf,
+  copula = "frank"
+)
 
 .X1 <- model.matrix(~ age + female, data = testdf)
 .beta1 <- rep(0, ncol(.X1))

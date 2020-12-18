@@ -1,4 +1,5 @@
 #' @rawNamespace useDynLib(bicopula, .registration=TRUE); useDynLib(bicopula_TMBExports)
+#' @import survival
 #' @keywords internal
 "_PACKAGE"
 

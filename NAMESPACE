@@ -3,5 +3,7 @@
 export(Exponential)
 export(Gompertz)
 export(Weibull)
+export(bisurvreg)
 export(simulate_bisurv)
+import(survival)
 useDynLib(bicopula, .registration=TRUE); useDynLib(bicopula_TMBExports)
