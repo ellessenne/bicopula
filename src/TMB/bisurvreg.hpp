@@ -52,13 +52,13 @@ Type bisurvreg_copula_C(
     Type u, // CDF of margin 1
     Type v, // CDF of margin 2
     Type theta, // Parameter 'theta'
-    int family // 1 = Independence, 2 = Frank
+    int copula // 1 = Independence, 2 = Frank
 ) {
   Type C;
-  if (family == 1) {
+  if (copula == 1) {
     // Independence copula
     C = u * v;
-  } else if (family == 2) {
+  } else if (copula == 2) {
     // Frank
     if (theta != 0) {
       C = (-1.0 / theta) * log(1.0 + (((exp(-theta * u) - 1.0) * (exp(-theta * v) - 1.0)) / (exp(-theta) - 1.0)));
@@ -77,15 +77,15 @@ Type bisurvreg_copula_Ck(
     Type k, // CDF of margin k
     Type other, // CDF of other margin
     Type theta, // Parameter 'theta'
-    int family // 1 = Independence, 2 = Frank
+    int copula // 1 = Independence, 2 = Frank
 ) {
   Type Ck;
-  if (family == 1) {
+  if (copula == 1) {
     // Independence copula
     // This *should* be f(k) * other
     // We need to be careful to pass the right f and not F from the main function
     Ck = k * other;
-  } else if (family == 2) {
+  } else if (copula == 2) {
     // Frank
     if (theta != 0) {
       Ck = exp(-theta * k) * (exp(-theta * other) - 1) / ((exp(-theta) - 1) + (exp(-theta * k) - 1) * (exp(-theta * other) - 1));
@@ -103,14 +103,14 @@ Type bisurvreg_copula_c(
     Type u, // CDF of margin 1
     Type v, // CDF of margin 2
     Type theta, // Parameter 'theta'
-    int family // 1 = Independence, 2 = Frank
+    int copula // 1 = Independence, 2 = Frank
 ) {
   Type c;
-  if (family == 1) {
+  if (copula == 1) {
     // Independence copula
     // This *should* be f(u) * f(v)
     c = u * v;
-  } else if (family == 2) {
+  } else if (copula == 2) {
     // Frank
     if (theta != 0) { // cannot have theta here, need to re-code by implementing this check as I()
       Type cden = (1 - exp(-theta)) - (1 - exp(-theta * u)) * (1 - exp(-theta * v));
@@ -146,7 +146,7 @@ Type bisurvreg(objective_function<Type>* obj) {
   // Distributions & copula family
   DATA_INTEGER(distribution1);
   DATA_INTEGER(distribution2);
-  DATA_INTEGER(family);
+  DATA_INTEGER(copula);
 
   // Parameters
   PARAMETER_VECTOR(beta1);
@@ -189,16 +189,16 @@ Type bisurvreg(objective_function<Type>* obj) {
   vector<Type> f2 = h2 * u2;
 
   // Copula components
-  vector<Type> C = bisurvreg_copula_C(u1, u2, theta, family);
+  vector<Type> C = bisurvreg_copula_C(u1, u2, theta, copula);
   vector<Type> C1(n), C2(n), c(n);
   if (theta != 0) {
-    C1 = bisurvreg_copula_Ck(u1, u2, theta, family);
-    C2 = bisurvreg_copula_Ck(u2, u1, theta, family);
-    c = bisurvreg_copula_c(u1, u2, theta, family);
+    C1 = bisurvreg_copula_Ck(u1, u2, theta, copula);
+    C2 = bisurvreg_copula_Ck(u2, u1, theta, copula);
+    c = bisurvreg_copula_c(u1, u2, theta, copula);
   } else {
-    C1 = bisurvreg_copula_Ck(u1, f2, theta, family);
-    C2 = bisurvreg_copula_Ck(u2, f1, theta, family);
-    c = bisurvreg_copula_c(f1, f2, theta, family);
+    C1 = bisurvreg_copula_Ck(u1, f2, theta, copula);
+    C2 = bisurvreg_copula_Ck(u2, f1, theta, copula);
+    c = bisurvreg_copula_c(f1, f2, theta, copula);
   }
 
   // Likelihood bits

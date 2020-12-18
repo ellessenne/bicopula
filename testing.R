@@ -4,7 +4,7 @@ devtools::load_all()
 
 set.seed(1)
 
-N <- 100000
+N <- 1000
 df <- data.frame(
   age = runif(N, 20, 40),
   female = rbinom(N, size = 1, prob = 0.5),
@@ -55,7 +55,7 @@ f <- TMB::MakeADFun(
     X2 = .X2,
     distribution1 = 1,
     distribution2 = 3,
-    family = 2
+    copula = 2
   ),
   parameters = list(
     beta1 = .beta1,
