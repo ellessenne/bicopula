@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -31,13 +33,14 @@ devtools::install_github("ellessenne/bicopula")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example.
+Simulating some bivariate data:
 
 ```{r example}
 library(bicopula)
 
 set.seed(42)
-N <- 200
+N <- 500
 df <- data.frame(
   age = runif(N, 20, 40),
   sex = rbinom(N, size = 1, prob = 0.5),
@@ -55,5 +58,24 @@ simdata <- simulate_bisurv(
   copula = copula::frankCopula(param = 5)
 )
 
+head(simdata)
+
 with(simdata, plot(eventtime1, eventtime2))
 ```
+
+Then, fitting a bivariate survival model:
+
+```{r fitting}
+df <- cbind(df, simdata)
+
+bisurvreg(
+  formula1 = Surv(eventtime1, status1) ~ age + sex,
+  distribution1 = "exponential",
+  formula2 = Surv(eventtime2, status2) ~ age + biomarker,
+  distribution2 = "weibull",
+  copula = "frank",
+  data = df
+)
+```
+
+Lots of work needs to be done to make this _pretty_, but as a proof-of-concept it doesn't feel too bad!
