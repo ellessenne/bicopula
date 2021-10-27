@@ -1,3 +1,6 @@
+#' @title Distributions
+#'
+#' @rdname distributions
 #' @export
 Exponential <- R6::R6Class("Exponential",
   cloneable = FALSE,
@@ -14,6 +17,7 @@ Exponential <- R6::R6Class("Exponential",
   )
 )
 
+#' @rdname distributions
 #' @export
 Weibull <- R6::R6Class("Weibull",
   cloneable = FALSE,
@@ -32,6 +36,7 @@ Weibull <- R6::R6Class("Weibull",
   )
 )
 
+#' @rdname distributions
 #' @export
 Gompertz <- R6::R6Class("Gompertz",
   cloneable = FALSE,

@@ -5,20 +5,20 @@ Authors@R:
   person(given = "Alessandro",
          family = "Gasparini",
          role = c("aut", "cre"),
-         email = "ellessenne@pm.me",
+         email = "git@ellessenne.xyz",
          comment = c(ORCID = "0000-0002-8319-7624"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Depends: 
   survival
 Imports:
   copula,
   R6,
-  TMB (>= 1.7.18)
+  TMB (>= 1.7.22)
 LinkingTo:
   TMB
 Suggests: 

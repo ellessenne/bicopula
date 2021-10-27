@@ -8,7 +8,7 @@ Type bisurvreg_hazard(
     Type anc, // ancillary parameter for Weibull and Gompertz distributions
     int distribution // 1 = Exponential, 2 = Weibull, 3 = Gompertz
   ) {
-  Type h;
+  Type h = 0.0;
   if (distribution == 1) {
     // Exponential
     h = exp(Xb);
@@ -31,7 +31,7 @@ Type bisurvreg_surv(
     Type anc, // ancillary parameter for Weibull and Gompertz distributions
     int distribution // 1 = Exponential, 2 = Weibull, 3 = Gompertz
   ) {
-  Type S;
+  Type S = 0.0;
   if (distribution == 1) {
     // Exponential
     S = exp(-exp(Xb) * t);
@@ -54,7 +54,7 @@ Type bisurvreg_copula_C(
     Type theta, // Parameter 'theta'
     int copula // 1 = Independence, 2 = Frank
 ) {
-  Type C;
+  Type C = 0.0;
   if (copula == 1) {
     // Independence copula
     C = u * v;
@@ -79,7 +79,7 @@ Type bisurvreg_copula_Ck(
     Type theta, // Parameter 'theta'
     int copula // 1 = Independence, 2 = Frank
 ) {
-  Type Ck;
+  Type Ck = 0.0;
   if (copula == 1) {
     // Independence copula
     // This *should* be f(k) * other
@@ -105,7 +105,7 @@ Type bisurvreg_copula_c(
     Type theta, // Parameter 'theta'
     int copula // 1 = Independence, 2 = Frank
 ) {
-  Type c;
+  Type c = 0.0;
   if (copula == 1) {
     // Independence copula
     // This *should* be f(u) * f(v)
